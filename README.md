@@ -13,7 +13,7 @@ This is a simple chatbot built using Google's Generative AI (Gemini API) and Str
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/python-programming-chatbot.git
+    git clone https://github.com/reemamemon/python-programming-chatbot.git
     cd python-programming-chatbot
     ```
 
