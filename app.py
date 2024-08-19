@@ -85,6 +85,24 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# User input
+user_input = st.text_input("Enter your Python programming question:", max_chars=2000)
+submit_button = st.button("Send")
+
+# Process user input and update history
+if submit_button and user_input:
+    # Add user input to history
+    st.session_state.history.append(("user", user_input))
+    
+    # Get model response
+    output = getResponseFromModel(user_input)
+    if output:
+        # Add model response to history
+        st.session_state.history.append(("bot", output))
+    
+    # Immediately display the new messages
+    st.experimental_rerun()
+
 # Display conversation history
 for entry in st.session_state.history:
     role, message = entry
@@ -100,21 +118,3 @@ for entry in st.session_state.history:
                     st.markdown(f'<div class="bot-message">{part}</div>', unsafe_allow_html=True)
         else:
             st.markdown(f'<div class="bot-message">{message}</div>', unsafe_allow_html=True)
-
-# User input
-with st.form(key="chat_form", clear_on_submit=True):
-    user_input = st.text_input("Enter your Python programming question:", max_chars=2000)
-    submit_button = st.form_submit_button("Send")
-    
-    if submit_button:
-        if user_input:
-            # Add user input to history
-            st.session_state.history.append(("user", user_input))
-            
-            # Get model response
-            output = getResponseFromModel(user_input)
-            if output:
-                # Add model response to history
-                st.session_state.history.append(("bot", output))
-        else:
-            st.write("Please enter a prompt to get a response.")
