@@ -70,38 +70,38 @@ st.markdown("""
         max-width: 80%;
         text-align: left;
         float: left;
-        clear: both;
+        clear: both.
     }
     .stCodeBlock {
         background-color: #2d2d2d !important;
         color: #ffffff !important;
         padding: 15px;
         border-radius: 5px;
-        font-family: "Courier New", Courier, monospace;
-        margin-bottom: 10px;
-        white-space: pre-wrap;
-        word-wrap: break-word;
+        font-family: "Courier New", Courier, monospace.
+        margin-bottom: 10px.
+        white-space: pre-wrap.
+        word-wrap: break-word.
     }
     </style>
 """, unsafe_allow_html=True)
 
-# User input
-user_input = st.text_input("Enter your Python programming question:", max_chars=2000)
-submit_button = st.button("Send")
-
-# Process user input and update history
-if submit_button and user_input:
-    # Add user input to history
-    st.session_state.history.append(("user", user_input))
+# Form for user input
+with st.form(key="chat_form", clear_on_submit=True):
+    user_input = st.text_input("Enter your Python programming question:", max_chars=2000)
+    submit_button = st.form_submit_button("Send")
     
-    # Get model response
-    output = getResponseFromModel(user_input)
-    if output:
-        # Add model response to history
-        st.session_state.history.append(("bot", output))
-    
-    # Immediately display the new messages
-    st.experimental_rerun()
+    if submit_button and user_input:
+        # Add user input to history
+        st.session_state.history.append(("user", user_input))
+        
+        # Get model response
+        output = getResponseFromModel(user_input)
+        if output:
+            # Add model response to history
+            st.session_state.history.append(("bot", output))
+        
+        # Immediately display the new messages
+        st.experimental_rerun()
 
 # Display conversation history
 for entry in st.session_state.history:
