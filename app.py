@@ -116,6 +116,5 @@ with st.form(key="chat_form", clear_on_submit=True):
             if output:
                 # Add model response to history
                 st.session_state.history.append(("bot", output))
-                st.experimental_rerun()  # Refresh the app to show updated history
         else:
             st.write("Please enter a prompt to get a response.")
