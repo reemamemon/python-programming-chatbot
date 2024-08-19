@@ -7,7 +7,6 @@ This is a simple chatbot built using Google's Generative AI (Gemini API) and Str
 - Responds to Python programming-related queries.
 - Handles basic greetings.
 - Displays responses in a user-friendly chat interface.
-- Displays code snippets with syntax highlighting in a black box.
 
 ## Installation
 
