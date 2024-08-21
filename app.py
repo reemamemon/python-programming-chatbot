@@ -68,7 +68,9 @@ st.markdown("""
         clear: both;
     }
     .bot-message {
+        background-color: #e0e0e0;
         padding: 10px;
+        border-radius: 10px;
         margin-bottom: 5px;
         display: inline-block;
         max-width: 80%;
@@ -77,7 +79,7 @@ st.markdown("""
         clear: both;
     }
     .stCodeBlock {
-        background-color: #2d2d2d !important;
+        background-color: #000000 !important;
         color: #ffffff !important;
         padding: 15px;
         border-radius: 5px;
@@ -96,18 +98,18 @@ with st.form(key="chat_form", clear_on_submit=True):
     
     if submit_button and user_input:
         # Add user input to history
-        st.session_state.history.append(("user", user_input))
+        st.session_state.history.insert(0, ("user", user_input))
         
         # Get model response
         output = getResponseFromModel(user_input)
         if output:
             # Add model response to history
-            st.session_state.history.append(("bot", output))
-        
-        # Immediately display the new messages
-        st.experimental_rerun()
+            st.session_state.history.insert(0, ("bot", output))
 
-# Display conversation history
+        # Avoid using st.experimental_rerun()
+        # Use query parameters or another method if needed to refresh the app
+        
+# Display conversation history (newest first)
 for entry in st.session_state.history:
     role, message = entry
     if role == "user":
