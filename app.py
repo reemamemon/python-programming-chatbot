@@ -106,11 +106,8 @@ with st.form(key="chat_form", clear_on_submit=True):
             # Add model response to history
             st.session_state.history.insert(0, ("bot", output))
 
-        # Avoid using st.experimental_rerun()
-        # Use query parameters or another method if needed to refresh the app
-        
 # Display conversation history (newest first)
-for entry in st.session_state.history:
+for entry in reversed(st.session_state.history):
     role, message = entry
     if role == "user":
         st.markdown(f'<div class="user-message">{message}</div>', unsafe_allow_html=True)
