@@ -37,7 +37,11 @@ def getResponseFromModel(user_input):
         # Check if the input is related to Python programming
         elif "python" in user_input.lower():
             response = model.generate_content(user_input)
-            return response.text
+            if response and hasattr(response, 'text'):
+                return response.text
+            else:
+                # Handle the case where no valid content was returned
+                return "Sorry, I couldn't generate a valid response. Please try rephrasing your question."
         else:
             return "I'm a Python programming chatbot, so I can only help with Python-related questions."
     
@@ -70,17 +74,17 @@ st.markdown("""
         max-width: 80%;
         text-align: left;
         float: left;
-        clear: both.
+        clear: both;
     }
     .stCodeBlock {
         background-color: #2d2d2d !important;
         color: #ffffff !important;
         padding: 15px;
         border-radius: 5px;
-        font-family: "Courier New", Courier, monospace.
-        margin-bottom: 10px.
-        white-space: pre-wrap.
-        word-wrap: break-word.
+        font-family: "Courier New", Courier, monospace;
+        margin-bottom: 10px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
     }
     </style>
 """, unsafe_allow_html=True)
